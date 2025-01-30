@@ -17,32 +17,27 @@ class Inscrito(Entidad):
         if self.isObject:
             return {
                 "curso": self.curso.diccionario(),
-                "estudiantes": [est.diccionario() for est in self.estudiantes]
+                "estudiantes": self.estudiantes.diccionario()
             }
         else:
             for inscrito in self.entidades:
                 diccionarios.append(inscrito.diccionario())
         return diccionarios
 
-    def __str__(self):
-        if self.isObject:
-            estudiantes_info = "\n".join([str(est) for est in self.estudiantes])
-            return f"Curso: {self.curso}\nEstudiantes inscritos:\n{estudiantes_info}"
-        else:
-            return f"Cantidad de inscritos: {len(self.entidades)}"
-
 if __name__ == "__main__":
-    inscrito = Inscrito()
+    estudiantes = Estudiante()
 
-    estudiante1 = Estudiante("Estudiante 1", "Apellido Paterno 1", "Apellido Materno 1", "1990-01-01", "1111111111")
-    estudiante2 = Estudiante("Estudiante 2", "Apellido Paterno 2", "Apellido Materno 2", "1991-02-15", "2222222222")
+    estudiante1 = Estudiante("estudiante 1", "apellido paterno 1", "apellido materno 1", "1990-01-01", "1111111111")
+    estudiante2 = Estudiante("estudiante 2", "apellido paterno 2", "apellido materno 2", "1991-02-15", "2222222222")
 
-    curso1 = Curso("Curso 1", "Descripcion 1", "2025-02-01", "2025-06-30", "Profesor 1")
+    estudiantes.agregar(estudiante1)
+    estudiantes.agregar(estudiante2)
 
-    print(inscrito.agregar(Inscrito(curso1, [estudiante1, estudiante2])))
+    curso1 = Curso("curso 1", "descripcion 1", "2025-02-01", "2025-06-30", "profesor 1")
 
-    print("Inscrito en formato diccionario:")
+    inscrito = Inscrito(curso1, estudiantes)
+
+    print("inscrito en formato diccionario:")
     print(inscrito.diccionario())
 
-    print("Cursos en formato JSON:")
-    print(inscrito.transformar_json("inscrito"))
+    inscrito.transformar_json("inscrito")

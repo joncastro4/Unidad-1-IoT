@@ -1,3 +1,5 @@
+import json
+
 from Entidad import Entidad
 
 class Estudiante(Entidad):
@@ -27,25 +29,29 @@ class Estudiante(Entidad):
             for estudiante in self.entidades:
                 diccionarios.append(estudiante.diccionario())
         return diccionarios
+    
+    def obtener_json(self):
+        with open("estudiante.json", 'r') as file:
+            return (json.load(file))
+        
+    def json_a_objeto(self):
+        json = self.obtener_json()
+        for estudiante in json:
+            self.agregar(Estudiante(estudiante["nombre"], estudiante["apellido_paterno"], estudiante["apellido_materno"], estudiante["fecha_nacimiento"], estudiante["telefono"]))
+        return self
 
     def __str__(self):
         if self.isObject:
             return f"Estudiante: {self.nombre}, Apellido Paterno: {self.apellido_paterno}, Apellido Materno: {self.apellido_materno}, Fecha de Nacimiento: {self.fecha_nacimiento}, Telefono: {self.telefono}"
         else:
-            return f"Cantidad de estudiantes: {len(self.entidades)}"
+            return f"Estudiantes: {(self.entidades)}"
+        
+    def __repr__(self):
+        return self.__str__()
 
 if __name__ == "__main__":
     estudiantes = Estudiante()
 
-    estudiante1 = Estudiante("Estudiante 1", "Apellido Paterno 1", "Apellido Materno 1", "1990-01-01", "1111111111")
-    estudiante2 = Estudiante("Estudiante 2", "Apellido Paterno 2", "Apellido Materno 2", "1991-02-15", "2222222222")
+    estudiantes.json_a_objeto()
 
-    print(estudiantes.agregar(estudiante1))
-    print(estudiantes.agregar(estudiante2))
-
-    print("Estudiantes en formato diccionario:")
-    print(estudiantes.diccionario())
-
-    print("Cursos en formato JSON:")
-    print(estudiantes.transformar_json("estudiante"))
-    
+    print(estudiantes.ver())

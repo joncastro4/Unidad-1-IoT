@@ -1,0 +1,25 @@
+{
+  "curso": {
+    "nombre": "curso 1",
+    "descripcion": "descripcion 1",
+    "fecha_inicio": "2025-02-01",
+    "fecha_fin": "2025-06-30",
+    "profesor": "profesor 1"
+  },
+  "estudiantes": [
+    {
+      "nombre": "estudiante 1",
+      "apellido_paterno": "apellido paterno 1",
+      "apellido_materno": "apellido materno 1",
+      "fecha_nacimiento": "1990-01-01",
+      "telefono": "1111111111"
+    },
+    {
+      "nombre": "estudiante 2",
+      "apellido_paterno": "apellido paterno 2",
+      "apellido_materno": "apellido materno 2",
+      "fecha_nacimiento": "1991-02-15",
+      "telefono": "2222222222"
+    }
+  ]
+}
