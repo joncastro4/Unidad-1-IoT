@@ -9,7 +9,7 @@ def ventana_cursos():
     btn_insertar = tk.Button(ventana_curso, text="Insertar", command=VC.ventana_insertar)
     btn_insertar.pack(pady=10)
 
-    btn_buscar = tk.Button(ventana_curso, text="Buscar", command=VC.ventana_ver)
+    btn_buscar = tk.Button(ventana_curso, text="Ver", command=VC.ventana_ver)
     btn_buscar.pack(pady=10)
 
     btn_modificar = tk.Button(ventana_curso, text="Modificar", command=VC.ventana_modificar)
