@@ -12,5 +12,33 @@
     "apellido_materno": "Apellido Materno 2",
     "fecha_nacimiento": "1991-02-15",
     "telefono": "2222222222"
+  },
+  {
+    "nombre": "Estudiante 1",
+    "apellido_paterno": "Apellido Paterno 1",
+    "apellido_materno": "Apellido Materno 1",
+    "fecha_nacimiento": "1990-01-01",
+    "telefono": "1111111111"
+  },
+  {
+    "nombre": "Estudiante 1",
+    "apellido_paterno": "Apellido Paterno 1",
+    "apellido_materno": "Apellido Materno 1",
+    "fecha_nacimiento": "1990-01-01",
+    "telefono": "1111111111"
+  },
+  {
+    "nombre": "Estudiante 1",
+    "apellido_paterno": "Apellido Paterno 1",
+    "apellido_materno": "Apellido Materno 1",
+    "fecha_nacimiento": "1990-01-01",
+    "telefono": "1111111111"
+  },
+  {
+    "nombre": "Estudiante 1",
+    "apellido_paterno": "Apellido Paterno 1",
+    "apellido_materno": "Apellido Materno 1",
+    "fecha_nacimiento": "1990-01-01",
+    "telefono": "1111111111"
   }
 ]

@@ -19,7 +19,7 @@ class Inscrito(Entidad):
         if self.isObject:
             return {
                 "curso": self.curso.diccionario(),
-                "estudiantes": [estudiante.diccionario() for estudiante in self.estudiantes]
+                "estudiantes": self.estudiantes.diccionario()
             }
         else:
             for inscrito in self.entidades:
@@ -28,32 +28,54 @@ class Inscrito(Entidad):
     
     def obtener_json(self):
         with open("inscrito.json", 'r') as file:
-            data = json.load(file)
-            print("contenido del json:", data)  # depuración
-            return data if isinstance(data, list) else []
+            return (json.load(file))
         
-    def json_a_objeto(self):
-        data = self.obtener_json()
-        
-        if isinstance(data, list):  # verificar si es una lista de diccionarios
-            for inscrito in data:
-                curso = Curso(**inscrito["curso"])  # suponer que Curso tiene un constructor adecuado
-                estudiantes = [Estudiante(**est) for est in inscrito["estudiantes"]]
-                self.agregar(Inscrito(curso, estudiantes))
+    def json_a_objeto(self, json_data = None):
+        if isinstance(json_data, str):
+            json_data = json.loads(json_data)
+
+        for inscrito in json_data:
+            curso = Curso(inscrito["curso"]["nombre"], inscrito["curso"]["descripcion"], inscrito["curso"]["fecha_inicio"], inscrito["curso"]["fecha_fin"], inscrito["curso"]["profesor"])
+
+            if isinstance(inscrito["estudiantes"], dict):
+                inscrito["estudiantes"] = [inscrito["estudiantes"]]
+
+            if isinstance(inscrito["estudiantes"], list):
+                e = Estudiante().json_a_objeto(inscrito["estudiantes"])
+
+            if e.ver():
+                self.agregar(Inscrito(curso, e))
+
         return self
-    
+
     def __str__(self):
         if self.isObject:
-            return f"Curso: {self.curso}, Estudiantes: {', '.join(str(est) for est in self.estudiantes)}"
+            return f"Curso: {self.curso}, Estudiantes: {self.estudiantes}"
         else:
-            return "\n".join(str(inscrito) for inscrito in self.entidades)
+            return f"Inscritos: {(self.entidades)}"
         
     def __repr__(self):
         return self.__str__()
 
 if __name__ == "__main__":
     inscritos = Inscrito()
+    curso = Curso()
+    estudiante = Estudiante()
 
-    inscritos.json_a_objeto()
+    json = inscritos.obtener_json()
 
-    print(inscritos.ver())
+    inscritos.json_a_objeto(json)
+
+    est = Estudiante("Estudiante 1", "Apellido Paterno 1", "Apellido Materno 1", "1990-01-01", "1111111111")
+    estudiante.agregar(est)
+
+    est = Estudiante("Estudiante 2", "Apellido Paterno 2", "Apellido Materno 2", "1991-02-15", "2222222222")
+    estudiante.agregar(est)
+
+    curso = Curso("Curso 1", "Descripcion 1", "2025-02-01", "2025-06-30", "Profesor 1")
+
+    inscritos.agregar(Inscrito(curso, estudiante))
+
+    inscritos.diccionario()
+
+    inscritos.transformar_json("inscrito")

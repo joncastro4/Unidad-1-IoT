@@ -34,8 +34,7 @@ class Curso(Entidad):
         with open("curso.json", 'r') as file:
             return (json.load(file))
         
-    def json_a_objeto(self):
-        json = self.obtener_json()
+    def json_a_objeto(self, json):
         for curso in json:
             self.agregar(Curso(curso["nombre"], curso["descripcion"], curso["fecha_inicio"], curso["fecha_fin"], curso["profesor"]))
         return self
@@ -44,7 +43,7 @@ class Curso(Entidad):
         if self.isObject:
             return f"Curso: {self.nombre}, Descripción: {self.descripcion}, Fecha de inicio: {self.fecha_inicio}, Fecha de fin: {self.fecha_fin}, Profesor: {self.profesor}"
         else:
-            return f"Cantidad de cursos: {len(self.entidades)}"
+            return f"Cursos: {(self.entidades)}"
         
     def __repr__(self):
         return self.__str__()
@@ -52,6 +51,18 @@ class Curso(Entidad):
 if __name__ == "__main__":
     curso = Curso()
 
-    curso.json_a_objeto()
+    curso1 = Curso("Curso 1", "Descripcion 1", "2025-02-01", "2025-06-30", "Profesor 1")
+
+    json = curso.obtener_json()
+
+    cursos = curso.json_a_objeto(json)
+
+    print(curso.ver())
+
+    curso.agregar(curso1)
+
+    print(curso.ver())
+
+    curso.transformar_json("curso")
 
     print(curso.ver())

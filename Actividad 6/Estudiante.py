@@ -34,8 +34,7 @@ class Estudiante(Entidad):
         with open("estudiante.json", 'r') as file:
             return (json.load(file))
         
-    def json_a_objeto(self):
-        json = self.obtener_json()
+    def json_a_objeto(self, json = None):
         for estudiante in json:
             self.agregar(Estudiante(estudiante["nombre"], estudiante["apellido_paterno"], estudiante["apellido_materno"], estudiante["fecha_nacimiento"], estudiante["telefono"]))
         return self
@@ -52,6 +51,12 @@ class Estudiante(Entidad):
 if __name__ == "__main__":
     estudiantes = Estudiante()
 
-    estudiantes.json_a_objeto()
+    estudiante = Estudiante("Estudiante 1", "Apellido Paterno 1", "Apellido Materno 1", "1990-01-01", "1111111111")
+
+    estudiantes = estudiantes.json_a_objeto()
+
+    estudiantes.agregar(estudiante)
 
     print(estudiantes.ver())
+
+    estudiantes.transformar_json("estudiante")
