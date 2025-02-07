@@ -6,20 +6,11 @@ def ventana_cursos():
     ventana_curso.title("Cursos")
     ventana_curso.geometry("200x300")
     
-    btn_insertar = tk.Button(ventana_curso, text="Insertar", command=VC.ventana_insertar)
-    btn_insertar.pack(pady=10)
-
-    btn_buscar = tk.Button(ventana_curso, text="Ver", command=VC.ventana_ver)
-    btn_buscar.pack(pady=10)
-
-    btn_modificar = tk.Button(ventana_curso, text="Modificar", command=VC.ventana_modificar)
-    btn_modificar.pack(pady=10)
-
-    btn_eliminar = tk.Button(ventana_curso, text="Eliminar", command=VC.ventana_eliminar)
-    btn_eliminar.pack(pady=10)
-
-    btn_cerrar = tk.Button(ventana_curso, text="Menú", command=ventana_curso.destroy)
-    btn_cerrar.pack(pady=10)
+    tk.Button(ventana_curso, text="Insertar", command=VC.ventana_insertar).pack(pady=10)
+    tk.Button(ventana_curso, text="Ver", command=VC.ventana_ver).pack(pady=10)
+    tk.Button(ventana_curso, text="Modificar", command=VC.ventana_modificar).pack(pady=10)
+    tk.Button(ventana_curso, text="Eliminar", command=VC.ventana_eliminar).pack(pady=10)
+    tk.Button(ventana_curso, text="Menú", command=ventana_curso.destroy).pack(pady=10)
 
 root = tk.Tk()
 root.title("Menú")

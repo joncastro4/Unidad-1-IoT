@@ -1,4 +1,5 @@
 import tkinter as tk
+from Curso import Curso as c
 
 class VentanasCursos:
     @staticmethod
@@ -131,21 +132,16 @@ class VentanasCursos:
         ventana.title("Ver Cursos")
         ventana.geometry("500x500")
 
-        # Aquí podrías agregar un widget de texto o una tabla para mostrar los cursos
-        text_cursos = tk.Text(ventana)
-        text_cursos.pack(pady=20, fill=tk.BOTH, expand=True)
+        cursos = tk.Text(ventana)
+        cursos.pack(pady=20, fill=tk.BOTH, expand=True)
 
-        # Simulación de datos de cursos
-        cursos = [
-            {"id": 1, "nombre": "Curso 1", "descripcion": "Descripción 1", "fecha_inicio": "2023-01-01", "fecha_fin": "2023-12-31", "profesor": "Profesor 1"},
-            {"id": 2, "nombre": "Curso 2", "descripcion": "Descripción 2", "fecha_inicio": "2023-02-01", "fecha_fin": "2023-11-30", "profesor": "Profesor 2"},
-        ]
+        cursos = c.obtener_json()
 
         for curso in cursos:
-            text_cursos.insert(tk.END, f"ID: {curso['id']}\n")
-            text_cursos.insert(tk.END, f"Nombre: {curso['nombre']}\n")
-            text_cursos.insert(tk.END, f"Descripción: {curso['descripcion']}\n")
-            text_cursos.insert(tk.END, f"Fecha de inicio: {curso['fecha_inicio']}\n")
-            text_cursos.insert(tk.END, f"Fecha de fin: {curso['fecha_fin']}\n")
-            text_cursos.insert(tk.END, f"Profesor: {curso['profesor']}\n")
-            text_cursos.insert(tk.END, "-" * 50 + "\n")
+            cursos.insert(tk.END, f"ID: {curso['id']}\n")
+            cursos.insert(tk.END, f"Nombre: {curso['nombre']}\n")
+            cursos.insert(tk.END, f"Descripción: {curso['descripcion']}\n")
+            cursos.insert(tk.END, f"Fecha de inicio: {curso['fecha_inicio']}\n")
+            cursos.insert(tk.END, f"Fecha de fin: {curso['fecha_fin']}\n")
+            cursos.insert(tk.END, f"Profesor: {curso['profesor']}\n")
+            cursos.insert(tk.END, "-" * 50 + "\n")
