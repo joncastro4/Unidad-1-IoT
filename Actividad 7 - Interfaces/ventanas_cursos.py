@@ -1,11 +1,15 @@
 import tkinter as tk
+from tkinter import ttk
+from tkinter import messagebox
+import re
 from Curso import Curso
 
 class VentanasCursos:
     def __init__(self, root):
         self.root = root
         self.cursos = Curso()
-        self.cursos.obtener_json()
+        json = self.cursos.obtener_json()
+        self.cursos.json_a_objeto(json)
 
     def ventana_cursos(self):
         ventana_curso = tk.Toplevel(self.root)
@@ -44,24 +48,45 @@ class VentanasCursos:
         input_profesor.pack(pady=5)
 
         def agregar_curso():
-            cur = Curso(
-                input_nombre.get(),
-                input_descripcion.get(),
-                input_fecha_inicio.get(),
-                input_fecha_fin.get(),
-                input_profesor.get()
-            )
+            nombre = input_nombre.get()
+            descripcion = input_descripcion.get()
+            fecha_inicio = input_fecha_inicio.get()
+            fecha_fin = input_fecha_fin.get()
+            profesor = input_profesor.get()
 
-            json = self.cursos.obtener_json()
+            if not nombre or not descripcion or not fecha_inicio or not fecha_fin or not profesor:
+                messagebox.showerror("Error", "Todos los campos son obligatorios")
+                return
 
-            self.cursos.json_a_objeto(json)
+            if not re.match(r"^[a-zA-Z0-9\sáéíóúÁÉÍÓÚüÜñÑ]+$", nombre):
+                messagebox.showerror("Error", "El nombre solo puede contener letras, números, espacios y acentos")
+                return
 
-            cursos = self.cursos.agregar(cur)
+            if not re.match(r"^[a-zA-Z0-9\sáéíóúÁÉÍÓÚüÜñÑ.,!?()-]+$", descripcion):
+                messagebox.showerror("Error", "La descripción contiene caracteres no permitidos")
+                return
 
-            self.cursos.transformar_json("curso")
+            if not re.match(r"^\d{4}-\d{2}-\d{2}$", fecha_inicio):
+                messagebox.showerror("Error", "La fecha de inicio debe estar en formato YYYY-MM-DD")
+                return
 
-        btn_agregar = tk.Button(ventana, text="Agregar", command=agregar_curso)
-        btn_agregar.pack(pady=20)
+            if not re.match(r"^\d{4}-\d{2}-\d{2}$", fecha_fin):
+                messagebox.showerror("Error", "La fecha de fin debe estar en formato YYYY-MM-DD")
+                return
+
+            if fecha_fin < fecha_inicio:
+                messagebox.showerror("Error", "La fecha de fin no puede ser menor a la fecha de inicio")
+                return
+
+            if not re.match(r"^[a-zA-Z\sáéíóúÁÉÍÓÚüÜñÑ]+$", profesor):
+                messagebox.showerror("Error", "El nombre del profesor solo puede contener letras, espacios y acentos")
+                return
+
+            if self.cursos.agregar(Curso(nombre, descripcion, fecha_inicio, fecha_fin, profesor)):
+                self.cursos.transformar_json("curso")
+                messagebox.showinfo("Información", "Curso agregado correctamente")
+            else:
+                messagebox.showerror("Error", "Error al agregar el curso")
 
         btn_guardar = tk.Button(
             ventana,
@@ -101,20 +126,50 @@ class VentanasCursos:
 
         def modificar_curso():
             index = int(input_id.get())
-            nuevo_curso = Curso(
-                input_nombre.get(),
-                input_descripcion.get(),
-                input_fecha_inicio.get(),
-                input_fecha_fin.get(),
-                input_profesor.get()
-            )
 
-            json = self.cursos.obtener_json()
-            self.cursos.json_a_objeto(json)
+            nombre = input_nombre.get()
+            descripcion = input_descripcion.get()
+            fecha_inicio = input_fecha_inicio.get()
+            fecha_fin = input_fecha_fin.get()
+            profesor = input_profesor.get()
 
-            self.cursos.modificar(index, nuevo_curso)
+            if not nombre or not descripcion or not fecha_inicio or not fecha_fin or not profesor:
+                messagebox.showerror("Error", "Todos los campos son obligatorios")
+                return
 
-            self.cursos.transformar_json("curso")
+            if not re.match(r"^[a-zA-Z0-9\sáéíóúÁÉÍÓÚüÜñÑ]+$", nombre):
+                messagebox.showerror("Error", "El nombre solo puede contener letras, números, espacios y acentos")
+                return
+
+            if not re.match(r"^[a-zA-Z0-9\sáéíóúÁÉÍÓÚüÜñÑ.,!?()-]+$", descripcion):
+                messagebox.showerror("Error", "La descripción contiene caracteres no permitidos")
+                return
+
+            if not re.match(r"^\d{4}-\d{2}-\d{2}$", fecha_inicio):
+                messagebox.showerror("Error", "La fecha de inicio debe estar en formato YYYY-MM-DD")
+                return
+
+            if not re.match(r"^\d{4}-\d{2}-\d{2}$", fecha_fin):
+                messagebox.showerror("Error", "La fecha de fin debe estar en formato YYYY-MM-DD")
+                return
+
+            if fecha_fin < fecha_inicio:
+                messagebox.showerror("Error", "La fecha de fin no puede ser menor a la fecha de inicio")
+                return
+
+            if not re.match(r"^[a-zA-Z\sáéíóúÁÉÍÓÚüÜñÑ]+$", profesor):
+                messagebox.showerror("Error", "El nombre del profesor solo puede contener letras, espacios y acentos")
+                return
+            
+            if not self.cursos.modificar(index, Curso(nombre, descripcion, fecha_inicio, fecha_fin, profesor)):
+                messagebox.showerror("Error", "ID no encontrado")
+                return
+            
+            if self.cursos.modificar(index, Curso(nombre, descripcion, fecha_inicio, fecha_fin, profesor)):
+                self.cursos.transformar_json("curso")
+                messagebox.showinfo("Información", "Curso modificado correctamente")
+            else:
+                messagebox.showerror("Error", "El curso no se pudo modificar")
 
         btn_guardar = tk.Button(ventana, text="Guardar", command=modificar_curso)
         btn_guardar.pack(pady=20)
@@ -130,8 +185,12 @@ class VentanasCursos:
 
         def eliminar_curso():
             curso = input_id.get()
-            
-            self.cursos.eliminar(int(curso))
+
+            if self.cursos.eliminar(int(curso)):
+                self.cursos.transformar_json("curso")
+                messagebox.showinfo("Información", "Curso eliminado correctamente")
+            else:
+                messagebox.showerror("Error", "Curso no encontrado")
 
         btn_eliminar = tk.Button(
             ventana,
@@ -143,24 +202,40 @@ class VentanasCursos:
     def ventana_ver(self):
         ventana = tk.Toplevel()
         ventana.title("Ver Cursos")
-        ventana.geometry("500x500")
+        ventana.geometry("1050x600")
 
-        text_area = tk.Text(ventana)
-        text_area.pack(pady=20, fill=tk.BOTH, expand=True)
+        if not self.cursos.ver():
+            label = tk.Label(ventana, text="No hay cursos")
+            label.pack(pady=10)
+        else:
+            frame = tk.Frame(ventana)
+            frame.pack(pady=10, fill=tk.BOTH, expand=True)
 
-        cursos = self.cursos.obtener_json()
+            cols = ("ID", "Nombre", "Descripción", "Fecha inicio", "Fecha fin", "Profesor")
 
-        if not cursos:
-            text_area.insert(tk.END, "No hay cursos disponibles.\n")
-            return
-        
-        cursosI = 0
-        for curso in cursos:
-            text_area.insert(tk.END, f"Id de curso {cursosI}:\n")
-            text_area.insert(tk.END, f"Nombre: {curso.get('nombre', 'Desconocido')}\n")
-            text_area.insert(tk.END, f"Descripción: {curso.get('descripcion', 'No disponible')}\n")
-            text_area.insert(tk.END, f"Fecha de inicio: {curso.get('fecha_inicio', 'No disponible')}\n")
-            text_area.insert(tk.END, f"Fecha de fin: {curso.get('fecha_fin', 'No disponible')}\n")
-            text_area.insert(tk.END, f"Profesor: {curso.get('profesor', 'No disponible')}\n")
-            text_area.insert(tk.END, "----------------------------------------------------------\n")
-            cursosI += 1
+            tree = ttk.Treeview(frame, columns=cols, show="headings")
+
+            tree.heading("ID", text="ID")
+            tree.heading("Nombre", text="Nombre")
+            tree.heading("Descripción", text="Descripción")
+            tree.heading("Fecha inicio", text="Fecha inicio")
+            tree.heading("Fecha fin", text="Fecha fin")
+            tree.heading("Profesor", text="Profesor")
+
+            tree.column("ID", width=50, anchor="center")
+            tree.column("Nombre", width=200, anchor="center")
+            tree.column("Descripción", width=200, anchor="center")
+            tree.column("Fecha inicio", width=200, anchor="center")
+            tree.column("Fecha fin", width=200, anchor="center")
+            tree.column("Profesor", width=200, anchor="center")
+            
+            scrollbar = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
+            tree.configure(yscroll=scrollbar.set)
+
+            scrollbar.pack(side="right", fill="y")
+            tree.pack(side="left", fill=tk.BOTH, expand=True)
+
+            curI = 0
+            for curso in self.cursos.ver():
+                tree.insert("", "end", values=[curI, curso.nombre, curso.descripcion, curso.fecha_inicio, curso.fecha_fin, curso.profesor])
+                curI += 1

@@ -14,11 +14,11 @@
     "profesor": "Profesor 1"
   },
   {
-    "nombre": "Curso 1",
-    "descripcion": "Descripcion 1",
-    "fecha_inicio": "2025-02-01",
-    "fecha_fin": "2025-06-30",
-    "profesor": "Profesor 1"
+    "nombre": "qwe",
+    "descripcion": "qwe",
+    "fecha_inicio": "1111-01-01",
+    "fecha_fin": "1112-01-01",
+    "profesor": "qwe"
   },
   {
     "nombre": "Curso 1",
@@ -28,11 +28,11 @@
     "profesor": "Profesor 1"
   },
   {
-    "nombre": "Curso 1",
-    "descripcion": "Descripcion 1",
-    "fecha_inicio": "2025-02-01",
-    "fecha_fin": "2025-06-30",
-    "profesor": "Profesor 1"
+    "nombre": "qweqweqweqw",
+    "descripcion": "hgfhfgh",
+    "fecha_inicio": "05/05/05",
+    "fecha_fin": "06/06/06",
+    "profesor": "ppp"
   },
   {
     "nombre": "Curso 1",
@@ -89,5 +89,26 @@
     "fecha_inicio": "12/12/12",
     "fecha_fin": "12/12/13",
     "profesor": "adsdasd"
+  },
+  {
+    "nombre": "MongoDB",
+    "descripcion": "Bases de datos no relacionales",
+    "fecha_inicio": "18/01/2025",
+    "fecha_fin": "28/02/2025",
+    "profesor": "Max"
+  },
+  {
+    "nombre": "a",
+    "descripcion": "a",
+    "fecha_inicio": "a",
+    "fecha_fin": "a",
+    "profesor": "a"
+  },
+  {
+    "nombre": "j",
+    "descripcion": "j",
+    "fecha_inicio": "j",
+    "fecha_fin": "j",
+    "profesor": "j"
   }
 ]
