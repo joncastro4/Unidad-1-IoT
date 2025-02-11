@@ -28,11 +28,11 @@
     "telefono": "1111111111"
   },
   {
-    "nombre": "Estudiante 1",
-    "apellido_paterno": "Apellido Paterno 1",
-    "apellido_materno": "Apellido Materno 1",
-    "fecha_nacimiento": "1990-01-01",
-    "telefono": "1111111111"
+    "nombre": "tr",
+    "apellido_paterno": "tr",
+    "apellido_materno": "tr",
+    "fecha_nacimiento": "1000-10-10",
+    "telefono": "1234567890"
   },
   {
     "nombre": "Estudiante 1",
@@ -40,5 +40,12 @@
     "apellido_materno": "Apellido Materno 1",
     "fecha_nacimiento": "1990-01-01",
     "telefono": "1111111111"
+  },
+  {
+    "nombre": "asd",
+    "apellido_paterno": "asd",
+    "apellido_materno": "asd",
+    "fecha_nacimiento": "1010-10-10",
+    "telefono": "1231231231"
   }
 ]

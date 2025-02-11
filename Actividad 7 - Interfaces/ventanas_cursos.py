@@ -133,6 +133,10 @@ class VentanasCursos:
             fecha_fin = input_fecha_fin.get()
             profesor = input_profesor.get()
 
+            if not index.isdigit():
+                messagebox.showerror("Error", "El ID debe ser un número entero")
+                return
+
             if not nombre or not descripcion or not fecha_inicio or not fecha_fin or not profesor:
                 messagebox.showerror("Error", "Todos los campos son obligatorios")
                 return
@@ -186,6 +190,10 @@ class VentanasCursos:
         def eliminar_curso():
             curso = input_id.get()
 
+            if not curso.isdigit():
+                messagebox.showerror("Error", "El ID debe ser un número entero")
+                return
+
             if self.cursos.eliminar(int(curso)):
                 self.cursos.transformar_json("curso")
                 messagebox.showinfo("Información", "Curso eliminado correctamente")
@@ -205,8 +213,7 @@ class VentanasCursos:
         ventana.geometry("1050x600")
 
         if not self.cursos.ver():
-            label = tk.Label(ventana, text="No hay cursos")
-            label.pack(pady=10)
+            tk.Label(ventana, text="No hay cursos").pack(pady=10)
         else:
             frame = tk.Frame(ventana)
             frame.pack(pady=10, fill=tk.BOTH, expand=True)
