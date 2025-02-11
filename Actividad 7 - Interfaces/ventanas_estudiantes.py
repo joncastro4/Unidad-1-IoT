@@ -163,7 +163,8 @@ class VentanasEstudiantes:
         ventana.geometry("500x500")
 
         tk.Label(ventana, text="ID:").pack(pady=5)
-        input_id = tk.Entry(ventana).pack(pady=5)
+        input_id = tk.Entry(ventana)
+        input_id.pack(pady=5)
 
         def eliminar_estudiante():
             estudiante_id = input_id.get()

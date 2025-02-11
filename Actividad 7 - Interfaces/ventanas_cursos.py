@@ -184,8 +184,7 @@ class VentanasCursos:
         ventana.geometry("500x500")
 
         tk.Label(ventana, text="ID:").pack(pady=5)
-        input_id = tk.Entry(ventana)
-        input_id.pack(pady=5)
+        input_id = tk.Entry(ventana).pack(pady=5)
 
         def eliminar_curso():
             curso = input_id.get()
@@ -200,11 +199,7 @@ class VentanasCursos:
             else:
                 messagebox.showerror("Error", "Curso no encontrado")
 
-        btn_eliminar = tk.Button(
-            ventana,
-            text="Eliminar",
-            command=eliminar_curso
-        )
+        btn_eliminar = tk.Button(ventana, text="Eliminar", command=eliminar_curso)
         btn_eliminar.pack(pady=20)
 
     def ventana_ver(self):
