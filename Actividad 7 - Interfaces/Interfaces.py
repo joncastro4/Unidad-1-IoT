@@ -8,17 +8,25 @@ def main():
     root.title("Menú")
     root.geometry("200x200")
 
-    vc = VentanasCursos(root)
-    ve = VentanasEstudiantes(root)
-    vi = VentanasInscritos(root)
+    def abrir_cursos():
+        vc = VentanasCursos(root)
+        vc.ventana_cursos()
 
-    btn1 = tk.Button(root, text="Curso", command=vc.ventana_cursos)
+    def abrir_estudiantes():
+        ve = VentanasEstudiantes(root)
+        ve.ventana_estudiantes()
+
+    def abrir_inscritos():
+        vi.ventana_inscritos()
+        vi = VentanasInscritos(root)
+
+    btn1 = tk.Button(root, text="Curso", command=abrir_cursos)
     btn1.pack(pady=5)
 
-    btn2 = tk.Button(root, text="Estudiantes", command=ve.ventana_estudiantes)
+    btn2 = tk.Button(root, text="Estudiantes", command=abrir_estudiantes)
     btn2.pack(pady=5)
 
-    btn3 = tk.Button(root, text="Inscritos", command=vi.ventana_inscritos)
+    btn3 = tk.Button(root, text="Inscritos", command=abrir_inscritos)
     btn3.pack(pady=5)
 
     root.mainloop()

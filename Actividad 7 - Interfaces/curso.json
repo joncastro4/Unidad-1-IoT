@@ -96,19 +96,5 @@
     "fecha_inicio": "18/01/2025",
     "fecha_fin": "28/02/2025",
     "profesor": "Max"
-  },
-  {
-    "nombre": "a",
-    "descripcion": "a",
-    "fecha_inicio": "a",
-    "fecha_fin": "a",
-    "profesor": "a"
-  },
-  {
-    "nombre": "j",
-    "descripcion": "j",
-    "fecha_inicio": "j",
-    "fecha_fin": "j",
-    "profesor": "j"
   }
 ]

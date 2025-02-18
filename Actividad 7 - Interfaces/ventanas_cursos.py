@@ -1,18 +1,23 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-import re
 from Curso import Curso
 
 class VentanasCursos:
-    def __init__(self, root):
+    def __init__(self, root, cursos=None):
         self.root = root
-        self.cursos = Curso()
-        json = self.cursos.obtener_json()
-        self.cursos.json_a_objeto(json)
+        
+        if cursos is None:
+            self.isJson = True
+            self.cursos = Curso()
+            self.cursos.json_a_objeto(self.cursos.obtener_json())
+        else:
+            self.isJson = False
+            self.cursos = cursos
 
     def ventana_cursos(self):
         ventana_curso = tk.Toplevel(self.root)
+        ventana_curso.overrideredirect(True)
         ventana_curso.title("Cursos")
         ventana_curso.geometry("200x300")
 
@@ -20,7 +25,13 @@ class VentanasCursos:
         tk.Button(ventana_curso, text="Ver", command=self.ventana_ver).pack(pady=10)
         tk.Button(ventana_curso, text="Modificar", command=self.ventana_modificar).pack(pady=10)
         tk.Button(ventana_curso, text="Eliminar", command=self.ventana_eliminar).pack(pady=10)
-        tk.Button(ventana_curso, text="Menú", command=ventana_curso.destroy).pack(pady=10)
+        
+        def cerrar():
+            if self.isJson:
+                self.cursos.transformar_json("curso")
+            ventana_curso.destroy()
+
+        tk.Button(ventana_curso, text="Menú", command=cerrar).pack(pady=10)
 
     def ventana_insertar(self):
         ventana = tk.Toplevel(self.root)
@@ -58,42 +69,38 @@ class VentanasCursos:
                 messagebox.showerror("Error", "Todos los campos son obligatorios")
                 return
 
-            if not re.match(r"^[a-zA-Z0-9\sáéíóúÁÉÍÓÚüÜñÑ]+$", nombre):
-                messagebox.showerror("Error", "El nombre solo puede contener letras, números, espacios y acentos")
-                return
-
-            if not re.match(r"^[a-zA-Z0-9\sáéíóúÁÉÍÓÚüÜñÑ.,!?()-]+$", descripcion):
-                messagebox.showerror("Error", "La descripción contiene caracteres no permitidos")
-                return
-
-            if not re.match(r"^\d{4}-\d{2}-\d{2}$", fecha_inicio):
-                messagebox.showerror("Error", "La fecha de inicio debe estar en formato YYYY-MM-DD")
-                return
-
-            if not re.match(r"^\d{4}-\d{2}-\d{2}$", fecha_fin):
-                messagebox.showerror("Error", "La fecha de fin debe estar en formato YYYY-MM-DD")
-                return
-
-            if fecha_fin < fecha_inicio:
-                messagebox.showerror("Error", "La fecha de fin no puede ser menor a la fecha de inicio")
-                return
-
-            if not re.match(r"^[a-zA-Z\sáéíóúÁÉÍÓÚüÜñÑ]+$", profesor):
-                messagebox.showerror("Error", "El nombre del profesor solo puede contener letras, espacios y acentos")
-                return
-
             if self.cursos.agregar(Curso(nombre, descripcion, fecha_inicio, fecha_fin, profesor)):
-                self.cursos.transformar_json("curso")
                 messagebox.showinfo("Información", "Curso agregado correctamente")
             else:
                 messagebox.showerror("Error", "Error al agregar el curso")
 
-        btn_guardar = tk.Button(
-            ventana,
-            text="Guardar",
-            command=agregar_curso
-        )
-        btn_guardar.pack(pady=20)
+        tk.Button(ventana, text="Guardar", command=agregar_curso).pack(pady=20)
+
+    def ventana_ver(self):
+        ventana = tk.Toplevel(self.root)
+        ventana.title("Ver Cursos")
+        ventana.geometry("1050x600")
+
+        if not self.cursos.ver():
+            tk.Label(ventana, text="No hay cursos").pack(pady=10)
+        else:
+            frame = tk.Frame(ventana)
+            frame.pack(pady=10, fill=tk.BOTH, expand=True)
+
+            cols = ("ID", "Nombre", "Descripción", "Fecha inicio", "Fecha fin", "Profesor")
+            tree = ttk.Treeview(frame, columns=cols, show="headings")
+            
+            for col in cols:
+                tree.heading(col, text=col)
+                tree.column(col, width=200, anchor="center")
+            
+            scrollbar = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
+            tree.configure(yscroll=scrollbar.set)
+            scrollbar.pack(side="right", fill="y")
+            tree.pack(side="left", fill=tk.BOTH, expand=True)
+            
+            for i, curso in enumerate(self.cursos.ver()):
+                tree.insert("", "end", values=(i, curso.nombre, curso.descripcion, curso.fecha_inicio, curso.fecha_fin, curso.profesor))
 
     def ventana_modificar(self):
         ventana = tk.Toplevel(self.root)
@@ -125,7 +132,11 @@ class VentanasCursos:
         input_profesor.pack(pady=5)
 
         def modificar_curso():
-            index = int(input_id.get())
+            index = input_id.get()
+            if not index.isdigit():
+                messagebox.showerror("Error", "El ID debe ser un número entero")
+                return
+            index = int(index)
 
             nombre = input_nombre.get()
             descripcion = input_descripcion.get()
@@ -133,50 +144,16 @@ class VentanasCursos:
             fecha_fin = input_fecha_fin.get()
             profesor = input_profesor.get()
 
-            if not index.isdigit():
-                messagebox.showerror("Error", "El ID debe ser un número entero")
-                return
-
             if not nombre or not descripcion or not fecha_inicio or not fecha_fin or not profesor:
                 messagebox.showerror("Error", "Todos los campos son obligatorios")
                 return
 
-            if not re.match(r"^[a-zA-Z0-9\sáéíóúÁÉÍÓÚüÜñÑ]+$", nombre):
-                messagebox.showerror("Error", "El nombre solo puede contener letras, números, espacios y acentos")
-                return
-
-            if not re.match(r"^[a-zA-Z0-9\sáéíóúÁÉÍÓÚüÜñÑ.,!?()-]+$", descripcion):
-                messagebox.showerror("Error", "La descripción contiene caracteres no permitidos")
-                return
-
-            if not re.match(r"^\d{4}-\d{2}-\d{2}$", fecha_inicio):
-                messagebox.showerror("Error", "La fecha de inicio debe estar en formato YYYY-MM-DD")
-                return
-
-            if not re.match(r"^\d{4}-\d{2}-\d{2}$", fecha_fin):
-                messagebox.showerror("Error", "La fecha de fin debe estar en formato YYYY-MM-DD")
-                return
-
-            if fecha_fin < fecha_inicio:
-                messagebox.showerror("Error", "La fecha de fin no puede ser menor a la fecha de inicio")
-                return
-
-            if not re.match(r"^[a-zA-Z\sáéíóúÁÉÍÓÚüÜñÑ]+$", profesor):
-                messagebox.showerror("Error", "El nombre del profesor solo puede contener letras, espacios y acentos")
-                return
-            
-            if not self.cursos.modificar(index, Curso(nombre, descripcion, fecha_inicio, fecha_fin, profesor)):
-                messagebox.showerror("Error", "ID no encontrado")
-                return
-            
             if self.cursos.modificar(index, Curso(nombre, descripcion, fecha_inicio, fecha_fin, profesor)):
-                self.cursos.transformar_json("curso")
                 messagebox.showinfo("Información", "Curso modificado correctamente")
             else:
                 messagebox.showerror("Error", "El curso no se pudo modificar")
 
-        btn_guardar = tk.Button(ventana, text="Guardar", command=modificar_curso)
-        btn_guardar.pack(pady=20)
+        tk.Button(ventana, text="Guardar", command=modificar_curso).pack(pady=20)
 
     def ventana_eliminar(self):
         ventana = tk.Toplevel(self.root)
@@ -184,60 +161,18 @@ class VentanasCursos:
         ventana.geometry("500x500")
 
         tk.Label(ventana, text="ID:").pack(pady=5)
-        input_id = tk.Entry(ventana).pack(pady=5)
+        input_id = tk.Entry(ventana)
+        input_id.pack(pady=5)
 
         def eliminar_curso():
             curso = input_id.get()
-
             if not curso.isdigit():
                 messagebox.showerror("Error", "El ID debe ser un número entero")
                 return
 
             if self.cursos.eliminar(int(curso)):
-                self.cursos.transformar_json("curso")
                 messagebox.showinfo("Información", "Curso eliminado correctamente")
             else:
                 messagebox.showerror("Error", "Curso no encontrado")
 
-        btn_eliminar = tk.Button(ventana, text="Eliminar", command=eliminar_curso)
-        btn_eliminar.pack(pady=20)
-
-    def ventana_ver(self):
-        ventana = tk.Toplevel()
-        ventana.title("Ver Cursos")
-        ventana.geometry("1050x600")
-
-        if not self.cursos.ver():
-            tk.Label(ventana, text="No hay cursos").pack(pady=10)
-        else:
-            frame = tk.Frame(ventana)
-            frame.pack(pady=10, fill=tk.BOTH, expand=True)
-
-            cols = ("ID", "Nombre", "Descripción", "Fecha inicio", "Fecha fin", "Profesor")
-
-            tree = ttk.Treeview(frame, columns=cols, show="headings")
-
-            tree.heading("ID", text="ID")
-            tree.heading("Nombre", text="Nombre")
-            tree.heading("Descripción", text="Descripción")
-            tree.heading("Fecha inicio", text="Fecha inicio")
-            tree.heading("Fecha fin", text="Fecha fin")
-            tree.heading("Profesor", text="Profesor")
-
-            tree.column("ID", width=50, anchor="center")
-            tree.column("Nombre", width=200, anchor="center")
-            tree.column("Descripción", width=200, anchor="center")
-            tree.column("Fecha inicio", width=200, anchor="center")
-            tree.column("Fecha fin", width=200, anchor="center")
-            tree.column("Profesor", width=200, anchor="center")
-            
-            scrollbar = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
-            tree.configure(yscroll=scrollbar.set)
-
-            scrollbar.pack(side="right", fill="y")
-            tree.pack(side="left", fill=tk.BOTH, expand=True)
-
-            curI = 0
-            for curso in self.cursos.ver():
-                tree.insert("", "end", values=[curI, curso.nombre, curso.descripcion, curso.fecha_inicio, curso.fecha_fin, curso.profesor])
-                curI += 1
+        tk.Button(ventana, text="Eliminar", command=eliminar_curso).pack(pady=20)

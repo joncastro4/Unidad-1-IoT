@@ -5,25 +5,36 @@ import re
 from Inscrito import Inscrito
 
 class VentanasInscritos():
-    def __init__(self, root):
+    def __init__(self, root, inscritos = None):
         self.root = root
-        self.inscritos = Inscrito()
-        json = self.inscritos.obtener_json()
-        self.inscritos.json_a_objeto(json)
+
+        if inscritos is None:
+            self.isJson = True
+            self.inscritos = Inscrito()
+            self.inscritos.json_a_objeto(self.inscritos.obtener_json())
+        elif inscritos is not None:
+            self.isJson = False
+            self.inscritos = inscritos
 
     def ventana_inscritos(self):
         ventana_inscrito = tk.Toplevel(self.root)
         ventana_inscrito.title("Inscritos")
         ventana_inscrito.geometry("200x300")
 
-        #tk.Button(ventana_inscrito, text="Insertar", command=self.ventana_insertar).pack(pady=10)
+        tk.Button(ventana_inscrito, text="Insertar", command=self.ventana_insertar).pack(pady=10)
         tk.Button(ventana_inscrito, text="Ver", command=self.ventana_ver).pack(pady=10)
-        #tk.Button(ventana_inscrito, text="Modificar", command=self.ventana_modificar).pack(pady=10)
-        #tk.Button(ventana_inscrito, text="Eliminar", command=self.ventana_eliminar).pack(pady=10)
+        tk.Button(ventana_inscrito, text="Modificar", command=self.ventana_modificar).pack(pady=10)
+        tk.Button(ventana_inscrito, text="Eliminar", command=self.ventana_eliminar).pack(pady=10)
         tk.Button(ventana_inscrito, text="Menú", command=ventana_inscrito.destroy).pack(pady=10)
 
-    # def ventana_insertar(self): return
-    
+    def ventana_insertar(self): 
+        ventana = tk.Toplevel(self.root)
+        ventana.title("Insertar inscrito")
+        ventana.geometry("400x400")
+
+        tk.Button(ventana, text="Curso", command=self.vc.ventana_insertar).pack(pady=10)
+        tk.Button(ventana, text="Estudiante", command=self.ve.ventana_insertar).pack(pady=10)
+
     def ventana_ver(self):
         ventana = tk.Toplevel()
         ventana.title("Ver inscritos")
@@ -104,6 +115,18 @@ class VentanasInscritos():
             ttk.Separator(ventana, orient="horizontal").pack(fill="x", pady=10)
             curI += 1
     
-    # def ventana_modificar(self): return
+    def ventana_modificar(self):
+        ventana = tk.Toplevel(self.root)
+        ventana.title("Modificar inscrito")
+        ventana.geometry("400x400")
+
+        tk.Button(ventana, text="Curso").pack(pady=10)
+        tk.Button(ventana, text="Estudiante").pack(pady=10)
     
-    # def ventana_eliminar(self): return
+    def ventana_eliminar(self): 
+        ventana = tk.Toplevel(self.root)
+        ventana.title("Eliminar inscrito")
+        ventana.geometry("400x400")
+
+        tk.Button(ventana, text="Curso").pack(pady=10)
+        tk.Button(ventana, text="Estudiante").pack(pady=10)
