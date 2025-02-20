@@ -1,0 +1,16 @@
+[
+  {
+    "nombre": "Curso 1",
+    "descripcion": "Descripcion 1",
+    "fecha_inicio": "2025-02-01",
+    "fecha_fin": "2025-06-30",
+    "profesor": "Profesor 1"
+  },
+  {
+    "nombre": "Curso 1",
+    "descripcion": "Descripcion 1",
+    "fecha_inicio": "2025-02-01",
+    "fecha_fin": "2025-06-30",
+    "profesor": "Profesor 1"
+  }
+]

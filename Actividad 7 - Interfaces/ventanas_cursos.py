@@ -145,3 +145,16 @@ class VentanasCursos:
             cursos.insert(tk.END, f"Fecha de fin: {curso['fecha_fin']}\n")
             cursos.insert(tk.END, f"Profesor: {curso['profesor']}\n")
             cursos.insert(tk.END, "-" * 50 + "\n")
+
+    def ventana_cursos(self):
+        ventana_curso = tk.Toplevel(root)
+        ventana_curso.title("Cursos")
+        ventana_curso.geometry("200x300")
+
+        cursos = c.Curso()
+        
+        tk.Button(ventana_curso, text="Insertar", command=self.ventana_insertar).pack(pady=10)
+        tk.Button(ventana_curso, text="Ver", command=self.ventana_ver).pack(pady=10)
+        tk.Button(ventana_curso, text="Modificar", command=self.ventana_modificar).pack(pady=10)
+        tk.Button(ventana_curso, text="Eliminar", commands=self.ventana_eliminar).pack(pady=10)
+        tk.Button(ventana_curso, text="Menú", command=ventana_curso.destroy).pack(pady=10)
