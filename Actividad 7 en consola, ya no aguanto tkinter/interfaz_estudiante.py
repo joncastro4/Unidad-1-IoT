@@ -45,6 +45,10 @@ class IEstudiante:
         
         nuevo_estudiante = Estudiante(nombre, apellido_paterno, apellido_materno, fecha_nacimiento, telefono)
         self.estudiante.agregar(nuevo_estudiante)
+
+        if self.isJson:
+            self.guardar_estudiantes()
+
         print("Estudiante agregado exitosamente.\n")
 
     def ver(self):
@@ -67,6 +71,10 @@ class IEstudiante:
             nuevo_estudiante = Estudiante(nombre, apellido_paterno, apellido_materno, fecha_nacimiento, telefono)
             resultado = self.estudiante.modificar(index, nuevo_estudiante)
             self.estudiantes[index] = nuevo_estudiante
+
+            if self.isJson:
+                self.guardar_estudiantes()
+
             print(resultado)
         except ValueError:
             print("Índice inválido.\n")
@@ -76,11 +84,11 @@ class IEstudiante:
         try:
             index = int(input("Ingrese el índice del estudiante a eliminar: "))
             self.estudiante.eliminar(index)
+
+            if self.isJson:
+                self.guardar_estudiantes()
+
         except IndexError:
             print("Índice inválido.\n")
         except ValueError:
             print("Índice inválido.\n")
-
-if __name__ == "__main__":
-    interfaz = IEstudiante()
-    interfaz.menu()

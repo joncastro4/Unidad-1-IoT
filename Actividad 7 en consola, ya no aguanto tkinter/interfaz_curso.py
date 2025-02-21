@@ -45,6 +45,9 @@ class ICurso:
         
         nuevo_curso = Curso(nombre, descripcion, fecha_inicio, fecha_fin, profesor)
         self.curso.agregar(nuevo_curso)
+
+        if self.isJson:
+            self.guardar_cursos()
         print("Curso agregado exitosamente.\n")
 
     def ver(self):
@@ -68,6 +71,9 @@ class ICurso:
             resultado = self.curso.modificar(index, nuevo_curso)
             self.cursos[index] = nuevo_curso
             print(resultado)
+
+            if self.isJson:
+                self.guardar_cursos()
         except ValueError:
             print("Índice inválido.\n")
 
@@ -76,5 +82,8 @@ class ICurso:
         try:
             index = int(input("Ingrese el índice del curso a eliminar: "))
             self.curso.eliminar(index)
+
+            if self.isJson:
+                self.guardar_cursos()
         except IndexError:
             print("Índice inválido.\n")
