@@ -3,10 +3,14 @@ from ventanas_cursos import VentanasCursos
 from ventanas_estudiantes import VentanasEstudiantes
 from ventanas_inscritos import VentanasInscritos
 
+<<<<<<< HEAD
 def main():
     root = tk.Tk()
     root.title("Menú")
     root.geometry("200x200")
+=======
+
+>>>>>>> 8627105f3c5920eaa875b92e972f3fd598b85e1d
 
     def abrir_cursos():
         vc = VentanasCursos(root)

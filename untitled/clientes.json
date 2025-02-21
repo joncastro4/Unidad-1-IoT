@@ -1,0 +1,16 @@
+[
+    {
+        "id_cliente": 1,
+        "nombre": "Erick",
+        "apellido_paterno": "Rangel",
+        "apellido_materno": "Vazquez",
+        "direccion": "Sol de Oriente"
+    },
+    {
+        "id_cliente": 2,
+        "nombre": "Daniel",
+        "apellido_paterno": "Rangel",
+        "apellido_materno": "Lopez",
+        "direccion": "Sol de Oriente"
+    }
+]

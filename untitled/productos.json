@@ -1,0 +1,16 @@
+[
+    {
+        "id_producto": 101,
+        "nombre": "Nitro",
+        "precio": 10.99,
+        "marca": "Adonis",
+        "contenido": 100
+    },
+    {
+        "id_producto": 102,
+        "nombre": "Boostane",
+        "precio": 10.99,
+        "marca": "Laravel",
+        "contenido": 100
+    }
+]

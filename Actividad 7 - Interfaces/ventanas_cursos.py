@@ -175,4 +175,33 @@ class VentanasCursos:
             else:
                 messagebox.showerror("Error", "Curso no encontrado")
 
+<<<<<<< HEAD
         tk.Button(ventana, text="Eliminar", command=eliminar_curso).pack(pady=20)
+=======
+        cursos = tk.Text(ventana)
+        cursos.pack(pady=20, fill=tk.BOTH, expand=True)
+
+        cursos = c.obtener_json()
+
+        for curso in cursos:
+            cursos.insert(tk.END, f"ID: {curso['id']}\n")
+            cursos.insert(tk.END, f"Nombre: {curso['nombre']}\n")
+            cursos.insert(tk.END, f"Descripción: {curso['descripcion']}\n")
+            cursos.insert(tk.END, f"Fecha de inicio: {curso['fecha_inicio']}\n")
+            cursos.insert(tk.END, f"Fecha de fin: {curso['fecha_fin']}\n")
+            cursos.insert(tk.END, f"Profesor: {curso['profesor']}\n")
+            cursos.insert(tk.END, "-" * 50 + "\n")
+
+    def ventana_cursos(self):
+        ventana_curso = tk.Toplevel(root)
+        ventana_curso.title("Cursos")
+        ventana_curso.geometry("200x300")
+
+        cursos = c.Curso()
+        
+        tk.Button(ventana_curso, text="Insertar", command=self.ventana_insertar).pack(pady=10)
+        tk.Button(ventana_curso, text="Ver", command=self.ventana_ver).pack(pady=10)
+        tk.Button(ventana_curso, text="Modificar", command=self.ventana_modificar).pack(pady=10)
+        tk.Button(ventana_curso, text="Eliminar", commands=self.ventana_eliminar).pack(pady=10)
+        tk.Button(ventana_curso, text="Menú", command=ventana_curso.destroy).pack(pady=10)
+>>>>>>> 8627105f3c5920eaa875b92e972f3fd598b85e1d

@@ -1,0 +1,26 @@
+[
+    {
+        "id_venta": 1,
+        "cliente": {
+            "id_cliente": 1,
+            "nombre": "Erick",
+            "apellido_paterno": "Rangel",
+            "apellido_materno": "Vazquez",
+            "direccion": "Sol de Oriente"
+        },
+        "productos": [],
+        "total": 0
+    },
+    {
+        "id_venta": 2,
+        "cliente": {
+            "id_cliente": 1,
+            "nombre": "Erick",
+            "apellido_paterno": "Rangel",
+            "apellido_materno": "Vazquez",
+            "direccion": "Sol de Oriente"
+        },
+        "productos": [],
+        "total": 0
+    }
+]
