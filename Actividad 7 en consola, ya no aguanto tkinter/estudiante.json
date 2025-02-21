@@ -26,5 +26,19 @@
     "apellido_materno": "Apellido Materno 1",
     "fecha_nacimiento": "1990-01-01",
     "telefono": "1111111111"
+  },
+  {
+    "nombre": "bv",
+    "apellido_paterno": "bv",
+    "apellido_materno": "bv",
+    "fecha_nacimiento": "bv",
+    "telefono": "bv"
+  },
+  {
+    "nombre": "bv",
+    "apellido_paterno": "gf",
+    "apellido_materno": "gf",
+    "fecha_nacimiento": "gf",
+    "telefono": "gf"
   }
 ]

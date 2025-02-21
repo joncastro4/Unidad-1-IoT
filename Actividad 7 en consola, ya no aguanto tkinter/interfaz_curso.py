@@ -49,6 +49,7 @@ class ICurso:
         if self.isJson:
             self.guardar_cursos()
         print("Curso agregado exitosamente.\n")
+        return nuevo_curso
 
     def ver(self):
         if self.cursos:
@@ -86,4 +87,6 @@ class ICurso:
             if self.isJson:
                 self.guardar_cursos()
         except IndexError:
+            print("Índice inválido.\n")
+        except ValueError:
             print("Índice inválido.\n")

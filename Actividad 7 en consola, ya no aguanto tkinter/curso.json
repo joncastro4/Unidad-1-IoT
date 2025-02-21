@@ -12,5 +12,12 @@
     "fecha_inicio": "gg",
     "fecha_fin": "gg",
     "profesor": "gg"
+  },
+  {
+    "nombre": "we",
+    "descripcion": "ds",
+    "fecha_inicio": "we",
+    "fecha_fin": "ds",
+    "profesor": "we"
   }
 ]

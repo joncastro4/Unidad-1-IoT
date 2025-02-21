@@ -1,6 +1,8 @@
 from Inscrito import Inscrito
 from Curso import Curso
 from Estudiante import Estudiante
+from interfaz_curso import ICurso
+from interfaz_estudiante import IEstudiante
 
 class IInscrito:
     def __init__(self, inscrito=None):
@@ -48,32 +50,21 @@ class IInscrito:
                 print("\nOpción no válida, intente nuevamente.\n")
 
     def insertar(self):
-        curso_nombre = input("Ingrese el nombre del curso: ")
-        curso_descripcion = input("Ingrese la descripción del curso: ")
-        curso_fecha_inicio = input("Ingrese la fecha de inicio (YYYY-MM-DD): ")
-        curso_fecha_fin = input("Ingrese la fecha de fin (YYYY-MM-DD): ")
-        curso_profesor = input("Ingrese el nombre del profesor: ")
-        
-        curso = Curso(curso_nombre, curso_descripcion, curso_fecha_inicio, curso_fecha_fin, curso_profesor)
-        
+        iCur = ICurso()
+        curso = iCur.insertar()
+
+        iEst = IEstudiante()
         estudiantes = Estudiante()
         while True:
-            estudiante_nombre = input("Ingrese el nombre del estudiante: ")
-            estudiante_apellido_paterno = input("Ingrese el apellido paterno del estudiante: ")
-            estudiante_apellido_materno = input("Ingrese el apellido materno del estudiante: ")
-            estudiante_fecha_nacimiento = input("Ingrese la fecha de nacimiento (YYYY-MM-DD): ")
-            estudiante_telefono = input("Ingrese el telefono del estudiante: ")
-            
-            estudiante = Estudiante(estudiante_nombre, estudiante_apellido_paterno, estudiante_apellido_materno, estudiante_fecha_nacimiento, estudiante_telefono)
+            estudiante = iEst.insertar()
             estudiantes.agregar(estudiante)
             
-            otro = input("¿Desea agregar otro estudiante? (s/n): ")
+            otro = input("Agregar otro estudiante? (s/n): ")
             if otro.lower() != 's':
                 break
         
         nuevo_inscrito = Inscrito(curso, estudiantes)
         self.inscrito.agregar(nuevo_inscrito)
-        self.inscritos.append(nuevo_inscrito)
         print("Inscripción agregada exitosamente.\n")
 
     def ver(self):
@@ -92,13 +83,8 @@ class IInscrito:
             index = int(input("Ingrese el índice del inscrito a modificar: "))
             inscrito = self.inscritos[index]
             
-            curso_nombre = input("Ingrese el nuevo nombre del curso: ")
-            curso_descripcion = input("Ingrese la nueva descripción del curso: ")
-            curso_fecha_inicio = input("Ingrese la nueva fecha de inicio (YYYY-MM-DD): ")
-            curso_fecha_fin = input("Ingrese la nueva fecha de fin (YYYY-MM-DD): ")
-            curso_profesor = input("Ingrese el nuevo nombre del profesor: ")
-            
-            inscrito.curso = Curso(curso_nombre, curso_descripcion, curso_fecha_inicio, curso_fecha_fin, curso_profesor)
+            curso_interface = ICurso(inscrito.curso)
+            curso_interface.modificar()
             print("Curso modificado exitosamente.\n")
         except (IndexError, ValueError):
             print("Índice inválido.\n")
@@ -114,13 +100,8 @@ class IInscrito:
                 print("ID de estudiante inválido.\n")
                 return
             
-            estudiante_nombre = input("Ingrese el nuevo nombre del estudiante: ")
-            estudiante_apellido_paterno = input("Ingrese el nuevo apellido paterno del estudiante: ")
-            estudiante_apellido_materno = input("Ingrese el nuevo apellido materno del estudiante: ")
-            estudiante_fecha_nacimiento = input("Ingrese la nueva fecha de nacimiento (YYYY-MM-DD): ")
-            estudiante_telefono = input("Ingrese el nuevo telefono del estudiante: ")
-            
-            inscrito.estudiantes.entidades[estudiante_idx] = Estudiante(estudiante_nombre, estudiante_apellido_paterno, estudiante_apellido_materno, estudiante_fecha_nacimiento, estudiante_telefono)
+            estudiante_interface = IEstudiante(inscrito.estudiantes.entidades[estudiante_idx])
+            estudiante_interface.modificar()
             print("Estudiante modificado exitosamente.\n")
         except (IndexError, ValueError):
             print("Índice inválido.\n")
@@ -159,14 +140,9 @@ class IInscrito:
             index = int(input("Ingrese el índice del curso al que desea agregar estudiantes: "))
             inscrito = self.inscritos[index]
             
+            estudiantes_interface = IEstudiante()
             while True:
-                estudiante_nombre = input("Ingrese el nombre del estudiante: ")
-                estudiante_apellido_paterno = input("Ingrese el apellido paterno del estudiante: ")
-                estudiante_apellido_materno = input("Ingrese el apellido materno del estudiante: ")
-                estudiante_fecha_nacimiento = input("Ingrese la fecha de nacimiento (YYYY-MM-DD): ")
-                estudiante_telefono = input("Ingrese el telefono del estudiante: ")
-                
-                estudiante = Estudiante(estudiante_nombre, estudiante_apellido_paterno, estudiante_apellido_materno, estudiante_fecha_nacimiento, estudiante_telefono)
+                estudiante = estudiantes_interface.insertar()
                 inscrito.estudiantes.agregar(estudiante)
                 
                 otra = input("¿Desea agregar otro estudiante? (s/n): ")
@@ -176,7 +152,3 @@ class IInscrito:
             print("Estudiantes agregados exitosamente.\n")
         except (IndexError, ValueError):
             print("Índice inválido.\n")
-
-if __name__ == "__main__":
-    interfaz = IInscrito()
-    interfaz.menu()

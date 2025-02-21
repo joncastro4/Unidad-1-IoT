@@ -50,6 +50,7 @@ class IEstudiante:
             self.guardar_estudiantes()
 
         print("Estudiante agregado exitosamente.\n")
+        return nuevo_estudiante
 
     def ver(self):
         if self.estudiantes:
