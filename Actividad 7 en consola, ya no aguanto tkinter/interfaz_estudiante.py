@@ -7,6 +7,8 @@ class IEstudiante:
         if self.isJson:
             json_data = self.estudiante.obtener_json()
             self.estudiantes = self.estudiante.json_a_objeto(json_data).entidades
+        else:
+            self.estudiantes = [self.estudiante]
 
     def guardar_estudiantes(self):
         self.estudiante.transformar_json("estudiante")
@@ -41,14 +43,14 @@ class IEstudiante:
         apellido_paterno = input("Ingrese el apellido paterno del estudiante: ")
         apellido_materno = input("Ingrese el apellido materno del estudiante: ")
         fecha_nacimiento = input("Ingrese la fecha de nacimiento (YYYY-MM-DD): ")
-        telefono = input("Ingrese el telefono del estudiante: ")
+        telefono = input("Ingrese el teléfono del estudiante: ")
         
         nuevo_estudiante = Estudiante(nombre, apellido_paterno, apellido_materno, fecha_nacimiento, telefono)
         self.estudiante.agregar(nuevo_estudiante)
+        self.estudiantes.append(nuevo_estudiante)
 
         if self.isJson:
             self.guardar_estudiantes()
-
         print("Estudiante agregado exitosamente.\n")
         return nuevo_estudiante
 
@@ -59,37 +61,53 @@ class IEstudiante:
         else:
             print("No hay estudiantes para mostrar.\n")
 
-    def modificar(self):
-        self.ver()
-        try:
-            index = int(input("Ingrese el índice del estudiante a modificar: "))
-            nombre = input("Ingrese el nuevo nombre del estudiante: ")
-            apellido_paterno = input("Ingrese el nuevo apellido paterno del estudiante: ")
-            apellido_materno = input("Ingrese el nuevo apellido materno del estudiante: ")
-            fecha_nacimiento = input("Ingrese la nueva fecha de nacimiento (YYYY-MM-DD): ")
-            telefono = input("Ingrese el nuevo telefono del estudiante: ")
-            
-            nuevo_estudiante = Estudiante(nombre, apellido_paterno, apellido_materno, fecha_nacimiento, telefono)
-            resultado = self.estudiante.modificar(index, nuevo_estudiante)
-            self.estudiantes[index] = nuevo_estudiante
+    def modificar(self, estudiante=None):
+        if estudiante is None:
+            self.ver()
+            try:
+                index = int(input("Ingrese el índice del estudiante a modificar: "))
+                if index < 0 or index >= len(self.estudiantes):
+                    print("Índice inválido.\n")
+                    return
 
-            if self.isJson:
-                self.guardar_estudiantes()
+                estudiante = self.estudiantes[index]
+            except ValueError:
+                print("Índice inválido.\n")
+                return
 
-            print(resultado)
-        except ValueError:
+        nombre = input(f"Ingrese el nuevo nombre del estudiante (actual: {estudiante.nombre}): ") or estudiante.nombre
+        apellido_paterno = input(f"Ingrese el nuevo apellido paterno del estudiante (actual: {estudiante.apellido_paterno}): ") or estudiante.apellido_paterno
+        apellido_materno = input(f"Ingrese el nuevo apellido materno del estudiante (actual: {estudiante.apellido_materno}): ") or estudiante.apellido_materno
+        fecha_nacimiento = input(f"Ingrese la nueva fecha de nacimiento (YYYY-MM-DD) (actual: {estudiante.fecha_nacimiento}): ") or estudiante.fecha_nacimiento
+        telefono = input(f"Ingrese el nuevo teléfono del estudiante (actual: {estudiante.telefono}): ") or estudiante.telefono
+        
+        estudiante.nombre = nombre
+        estudiante.apellido_paterno = apellido_paterno
+        estudiante.apellido_materno = apellido_materno
+        estudiante.fecha_nacimiento = fecha_nacimiento
+        estudiante.telefono = telefono
+
+        print("Estudiante modificado exitosamente.\n")
+
+        if self.isJson:
+            self.guardar_estudiantes()
+
+    def eliminar(self, index=None):
+        if index is None:
+            self.ver()
+            try:
+                index = int(input("Ingrese el índice del estudiante a eliminar: "))
+            except ValueError:
+                print("Índice inválido.\n")
+                return
+
+        if index < 0 or index >= len(self.estudiantes):
             print("Índice inválido.\n")
+            return
 
-    def eliminar(self):
-        self.ver()
-        try:
-            index = int(input("Ingrese el índice del estudiante a eliminar: "))
-            self.estudiante.eliminar(index)
+        resultado = self.estudiante.eliminar(index)
+        del self.estudiantes[index]
+        print(resultado)
 
-            if self.isJson:
-                self.guardar_estudiantes()
-
-        except IndexError:
-            print("Índice inválido.\n")
-        except ValueError:
-            print("Índice inválido.\n")
+        if self.isJson:
+            self.guardar_estudiantes()

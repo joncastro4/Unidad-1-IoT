@@ -1,5 +1,4 @@
 from Inscrito import Inscrito
-from Curso import Curso
 from Estudiante import Estudiante
 from interfaz_curso import ICurso
 from interfaz_estudiante import IEstudiante
@@ -65,6 +64,10 @@ class IInscrito:
         
         nuevo_inscrito = Inscrito(curso, estudiantes)
         self.inscrito.agregar(nuevo_inscrito)
+
+        if self.isJson:
+            self.guardar_inscritos()
+
         print("Inscripción agregada exitosamente.\n")
 
     def ver(self):
@@ -81,11 +84,17 @@ class IInscrito:
         self.ver()
         try:
             index = int(input("Ingrese el índice del inscrito a modificar: "))
+            if index < 0 or index >= len(self.inscritos):
+                print("Índice inválido.\n")
+                return
+
             inscrito = self.inscritos[index]
-            
-            curso_interface = ICurso(inscrito.curso)
-            curso_interface.modificar()
+            curso_interface = ICurso()
+            curso_interface.modificar(inscrito.curso)
             print("Curso modificado exitosamente.\n")
+
+            if self.isJson:
+                self.guardar_inscritos()
         except (IndexError, ValueError):
             print("Índice inválido.\n")
 
@@ -93,44 +102,63 @@ class IInscrito:
         self.ver()
         try:
             index = int(input("Ingrese el índice del inscrito: "))
+            if index < 0 or index >= len(self.inscritos):
+                print("Índice inválido.\n")
+                return
+
             inscrito = self.inscritos[index]
             estudiante_idx = int(input("Ingrese el ID del estudiante a modificar: "))
-            
             if estudiante_idx < 0 or estudiante_idx >= len(inscrito.estudiantes.entidades):
                 print("ID de estudiante inválido.\n")
                 return
-            
-            estudiante_interface = IEstudiante(inscrito.estudiantes.entidades[estudiante_idx])
-            estudiante_interface.modificar()
+
+            estudiante_interface = IEstudiante()
+            estudiante_interface.modificar(inscrito.estudiantes.entidades[estudiante_idx])
             print("Estudiante modificado exitosamente.\n")
+
+            if self.isJson:
+                self.guardar_inscritos()
         except (IndexError, ValueError):
             print("Índice inválido.\n")
 
     def eliminar_curso(self):
         self.ver()
         try:
-            index = int(input("Ingrese el índice del curso a eliminar: "))
+            index = int(input("Ingrese el índice del inscrito a eliminar: "))
+            if index < 0 or index >= len(self.inscritos):
+                print("Índice inválido.\n")
+                return
+
             resultado = self.inscrito.eliminar(index)
             del self.inscritos[index]
             print(resultado)
-        except IndexError:
-            print("Índice inválido.\n")
-        except ValueError:
+
+            if self.isJson:
+                self.guardar_inscritos()
+        except (IndexError, ValueError):
             print("Índice inválido.\n")
 
     def eliminar_estudiante(self):
         self.ver()
         try:
             index = int(input("Ingrese el índice del inscrito: "))
+            if index < 0 or index >= len(self.inscritos):
+                print("Índice inválido.\n")
+                return
+
             inscrito = self.inscritos[index]
             estudiante_idx = int(input("Ingrese el ID del estudiante a eliminar: "))
-            
             if estudiante_idx < 0 or estudiante_idx >= len(inscrito.estudiantes.entidades):
                 print("ID de estudiante inválido.\n")
                 return
-            
+
+            estudiante_interface = IEstudiante()
+            estudiante_interface.eliminar(estudiante_idx)
             del inscrito.estudiantes.entidades[estudiante_idx]
             print("Estudiante eliminado exitosamente.\n")
+
+            if self.isJson:
+                self.guardar_inscritos()
         except (IndexError, ValueError):
             print("Índice inválido.\n")
 
@@ -138,17 +166,23 @@ class IInscrito:
         self.ver()
         try:
             index = int(input("Ingrese el índice del curso al que desea agregar estudiantes: "))
+            if index < 0 or index >= len(self.inscritos):
+                print("Índice inválido.\n")
+                return
+
             inscrito = self.inscritos[index]
-            
             estudiantes_interface = IEstudiante()
             while True:
                 estudiante = estudiantes_interface.insertar()
                 inscrito.estudiantes.agregar(estudiante)
-                
+
                 otra = input("¿Desea agregar otro estudiante? (s/n): ")
                 if otra.lower() != 's':
                     break
-            
+
             print("Estudiantes agregados exitosamente.\n")
+
+            if self.isJson:
+                self.guardar_inscritos()
         except (IndexError, ValueError):
             print("Índice inválido.\n")

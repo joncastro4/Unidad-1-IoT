@@ -98,5 +98,41 @@
         "telefono": "gf"
       }
     ]
+  },
+  {
+    "curso": {
+      "nombre": "eeeppp1",
+      "descripcion": "pwpwpw",
+      "fecha_inicio": "elel",
+      "fecha_fin": "mamama",
+      "profesor": ",ddd,d,d"
+    },
+    "estudiantes": [
+      {
+        "nombre": "dsdsd",
+        "apellido_paterno": "sdsds",
+        "apellido_materno": "dsdsds",
+        "fecha_nacimiento": "dsdsds",
+        "telefono": "dsdsds"
+      }
+    ]
+  },
+  {
+    "curso": {
+      "nombre": "q",
+      "descripcion": "q",
+      "fecha_inicio": "q",
+      "fecha_fin": "q",
+      "profesor": "q"
+    },
+    "estudiantes": [
+      {
+        "nombre": "mmm",
+        "apellido_paterno": "nbvnbn",
+        "apellido_materno": "nvbnvbn",
+        "fecha_nacimiento": "vbnvbn",
+        "telefono": "vbnvbn"
+      }
+    ]
   }
 ]

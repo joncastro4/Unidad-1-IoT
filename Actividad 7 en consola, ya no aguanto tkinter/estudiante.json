@@ -7,32 +7,11 @@
     "telefono": "1111111111"
   },
   {
-    "nombre": "Estudiante 2",
-    "apellido_paterno": "Apellido Paterno 2",
-    "apellido_materno": "Apellido Materno 2",
-    "fecha_nacimiento": "1991-02-15",
-    "telefono": "2222222222"
-  },
-  {
     "nombre": "Estudiante 1",
     "apellido_paterno": "Apellido Paterno 1",
     "apellido_materno": "Apellido Materno 1",
     "fecha_nacimiento": "1990-01-01",
     "telefono": "1111111111"
-  },
-  {
-    "nombre": "Estudiante 1",
-    "apellido_paterno": "Apellido Paterno 1",
-    "apellido_materno": "Apellido Materno 1",
-    "fecha_nacimiento": "1990-01-01",
-    "telefono": "1111111111"
-  },
-  {
-    "nombre": "bv",
-    "apellido_paterno": "bv",
-    "apellido_materno": "bv",
-    "fecha_nacimiento": "bv",
-    "telefono": "bv"
   },
   {
     "nombre": "bv",
@@ -40,5 +19,33 @@
     "apellido_materno": "gf",
     "fecha_nacimiento": "gf",
     "telefono": "gf"
+  },
+  {
+    "nombre": "dsdsd",
+    "apellido_paterno": "sdsds",
+    "apellido_materno": "dsdsds",
+    "fecha_nacimiento": "dsdsds",
+    "telefono": "dsdsds"
+  },
+  {
+    "nombre": "vvvv",
+    "apellido_paterno": "vvvv",
+    "apellido_materno": "vvvv",
+    "fecha_nacimiento": "vvvv",
+    "telefono": "vvvv"
+  },
+  {
+    "nombre": "mmm",
+    "apellido_paterno": "nbvnbn",
+    "apellido_materno": "nvbnvbn",
+    "fecha_nacimiento": "vbnvbn",
+    "telefono": "vbnvbn"
+  },
+  {
+    "nombre": "fdfd",
+    "apellido_paterno": "fdfd",
+    "apellido_materno": "fdfd",
+    "fecha_nacimiento": "fdfd",
+    "telefono": "fdfd"
   }
 ]

@@ -47,22 +47,3 @@ class Curso(Entidad):
         
     def __repr__(self):
         return self.__str__()
-
-if __name__ == "__main__":
-    curso = Curso()
-
-    curso1 = Curso("Curso 1", "Descripcion 1", "2025-02-01", "2025-06-30", "Profesor 1")
-
-    json = curso.obtener_json()
-
-    cursos = curso.json_a_objeto(json)
-
-    print(curso.ver())
-
-    curso.agregar(curso1)
-
-    print(curso.ver())
-
-    curso.transformar_json("curso")
-
-    print(curso.ver())
