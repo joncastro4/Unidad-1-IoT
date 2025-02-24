@@ -56,30 +56,6 @@ class Lista:
         else:
             return None
 
-    def convertir_a_objetos(self, items_dicts, obj_class):
-        for item_dict in items_dicts:
-            # Convertir el campo 'curso' de dict a Curso
-            if 'curso' in item_dict:
-                from curso import Curso 
-                item_dict['curso'] = Curso(**item_dict['curso'])
-        
-            # Convertir la lista de estudiantes de dicts a Estudiante
-            if 'estudiantes' in item_dict:
-                from estudiante import Estudiante 
-                estudiantes = Estudiante()  # Crear una lista de estudiantes
-                if isinstance(item_dict['estudiantes'], list):  # Verificar si es una lista
-                    for est_dict in item_dict['estudiantes']:
-                        if isinstance(est_dict, dict):  # Verificar si es un diccionario
-                            estudiantes.agregar(Estudiante(**est_dict))
-                        else:
-                            print(f"Advertencia: Se encontró un estudiante no válido: {est_dict}")
-                else:
-                    print(f"Advertencia: El campo 'estudiantes' no es una lista: {item_dict['estudiantes']}")
-                item_dict['estudiantes'] = estudiantes
-        
-            # Crear el objeto Inscripcion
-            self.agregar(obj_class(**item_dict))
-        return self 
     
     def guardar_en_mongodb(self, database_name="universidad", collection_name="inscripciones"):
 

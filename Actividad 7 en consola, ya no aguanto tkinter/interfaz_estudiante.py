@@ -12,8 +12,10 @@ class IEstudiante:
 
     def guardar_estudiantes(self):
         self.estudiante.transformar_json("estudiante")
+        self.estudiante.guardar_en_mongodb(database_name="Escuela", collection_name="estudiantes")
 
     def menu(self):
+        
         while True:
             print("\n1. Insertar")
             print("2. Ver")
