@@ -12,6 +12,7 @@ class ICurso:
 
     def guardar_cursos(self):
         self.curso.transformar_json("curso")
+        self.curso.guardar_en_mongodb(database_name="Escuela", collection_name="cursos")
 
     def menu(self):
         while True:

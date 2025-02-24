@@ -10,9 +10,12 @@ class IInscrito:
         if self.isJson:
             json_data = self.inscrito.obtener_json()
             self.inscritos = self.inscrito.json_a_objeto(json_data).entidades
+        else:
+            self.inscritos = [self.inscrito]
 
     def guardar_inscritos(self):
         self.inscrito.transformar_json("inscrito")
+        self.inscrito.guardar_en_mongodb(database_name="Escuela", collection_name="inscritos")
 
     def menu(self):
         while True:
@@ -64,6 +67,7 @@ class IInscrito:
         
         nuevo_inscrito = Inscrito(curso, estudiantes)
         self.inscrito.agregar(nuevo_inscrito)
+        self.inscritos.append(nuevo_inscrito)
 
         if self.isJson:
             self.guardar_inscritos()

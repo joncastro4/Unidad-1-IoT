@@ -57,7 +57,7 @@ class Entidad:
         except Exception as e:
             print(f"Error al conectar a MongoDB Atlas: {e}")
             self.to_json("outputCopia", f"{collection_name}_temporal.json")
-          
+
         finally:
             client.close()
     

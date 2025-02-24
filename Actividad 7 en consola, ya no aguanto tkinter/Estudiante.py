@@ -14,6 +14,7 @@ class Estudiante(Entidad):
             self.telefono = telefono
         else:
             super().__init__()
+
     def __str__(self):
         if self._modo_lista:
             return f"Lista de estudiantes:\n{super().__str__()}" 
@@ -22,6 +23,7 @@ class Estudiante(Entidad):
                     f"Email: {self.apellido_paterno}\n"
                     f"Edad: {self.fecha_nacimiento}\n"
                     f"Teléfono: {self.telefono}")
+        
     def diccionario(self):
         diccionarios = []
         if self.isObject:
