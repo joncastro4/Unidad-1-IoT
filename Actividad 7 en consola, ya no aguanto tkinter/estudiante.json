@@ -145,5 +145,33 @@
     "apellido_materno": "ww",
     "fecha_nacimiento": "1",
     "telefono": "1"
+  },
+  {
+    "nombre": "qwe",
+    "apellido_paterno": "qwe",
+    "apellido_materno": "qwe",
+    "fecha_nacimiento": "qwe",
+    "telefono": "qwe"
+  },
+  {
+    "nombre": "qwe",
+    "apellido_paterno": "qwe",
+    "apellido_materno": "qwe",
+    "fecha_nacimiento": "qwe",
+    "telefono": "qwe"
+  },
+  {
+    "nombre": "cvb",
+    "apellido_paterno": "cvb",
+    "apellido_materno": "cvb",
+    "fecha_nacimiento": "cvb",
+    "telefono": "cvb"
+  },
+  {
+    "nombre": "cvb",
+    "apellido_paterno": "cvb",
+    "apellido_materno": "cvb",
+    "fecha_nacimiento": "cvb",
+    "telefono": "cvb"
   }
 ]

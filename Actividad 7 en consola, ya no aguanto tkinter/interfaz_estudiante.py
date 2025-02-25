@@ -8,11 +8,15 @@ class IEstudiante:
             json_data = self.estudiante.obtener_json()
             self.estudiantes = self.estudiante.json_a_objeto(json_data).entidades
         else:
-            self.estudiantes = [self.estudiante]
+            if estudiante.isObject:
+                estudiantes = Estudiante()
+                estudiantes.agregar(estudiante)
+                self.estudiantes = estudiantes
+            else:
+                self.estudiantes = estudiante
 
     def guardar_estudiantes(self):
         self.estudiante.transformar_json("estudiante")
-        self.estudiante.guardar_en_mongodb(database_name="Escuela", collection_name="estudiantes")
 
     def menu(self):
         
@@ -49,7 +53,6 @@ class IEstudiante:
         
         nuevo_estudiante = Estudiante(nombre, apellido_paterno, apellido_materno, fecha_nacimiento, telefono)
         self.estudiante.agregar(nuevo_estudiante)
-        self.estudiantes.append(nuevo_estudiante)
 
         if self.isJson:
             self.guardar_estudiantes()
@@ -77,11 +80,11 @@ class IEstudiante:
                 print("Índice inválido.\n")
                 return
 
-        nombre = input(f"Ingrese el nuevo nombre del estudiante (actual: {estudiante.nombre}): ") or estudiante.nombre
-        apellido_paterno = input(f"Ingrese el nuevo apellido paterno del estudiante (actual: {estudiante.apellido_paterno}): ") or estudiante.apellido_paterno
-        apellido_materno = input(f"Ingrese el nuevo apellido materno del estudiante (actual: {estudiante.apellido_materno}): ") or estudiante.apellido_materno
-        fecha_nacimiento = input(f"Ingrese la nueva fecha de nacimiento (YYYY-MM-DD) (actual: {estudiante.fecha_nacimiento}): ") or estudiante.fecha_nacimiento
-        telefono = input(f"Ingrese el nuevo teléfono del estudiante (actual: {estudiante.telefono}): ") or estudiante.telefono
+        nombre = input(f"Ingrese el nuevo nombre del estudiante: ") or estudiante.nombre
+        apellido_paterno = input(f"Ingrese el nuevo apellido paterno del estudiante: ") or estudiante.apellido_paterno
+        apellido_materno = input(f"Ingrese el nuevo apellido materno del estudiante: ") or estudiante.apellido_materno
+        fecha_nacimiento = input(f"Ingrese la nueva fecha de nacimiento (YYYY-MM-DD): ") or estudiante.fecha_nacimiento
+        telefono = input(f"Ingrese el nuevo teléfono del estudiante: ") or estudiante.telefono
         
         estudiante.nombre = nombre
         estudiante.apellido_paterno = apellido_paterno

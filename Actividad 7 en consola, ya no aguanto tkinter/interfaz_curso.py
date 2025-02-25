@@ -8,11 +8,15 @@ class ICurso:
             json_data = self.curso.obtener_json()
             self.cursos = self.curso.json_a_objeto(json_data).entidades
         else:
-            self.cursos = [self.curso]
+            if curso.isObject:
+                cursos = Curso()
+                cursos.agregar(curso)
+                self.cursos = cursos
+            else:
+                self.cursos = curso
 
     def guardar_cursos(self):
         self.curso.transformar_json("curso")
-        self.curso.guardar_en_mongodb(database_name="Escuela", collection_name="cursos")
 
     def menu(self):
         while True:
@@ -48,7 +52,6 @@ class ICurso:
         
         nuevo_curso = Curso(nombre, descripcion, fecha_inicio, fecha_fin, profesor)
         self.curso.agregar(nuevo_curso)
-        self.cursos.append(nuevo_curso)
 
         if self.isJson:
             self.guardar_cursos()
@@ -76,11 +79,11 @@ class ICurso:
                 print("Índice inválido.\n")
                 return
 
-        nombre = input(f"Ingrese el nuevo nombre del curso (actual: {curso.nombre}): ") or curso.nombre
-        descripcion = input(f"Ingrese la nueva descripción del curso (actual: {curso.descripcion}): ") or curso.descripcion
-        fecha_inicio = input(f"Ingrese la nueva fecha de inicio (YYYY-MM-DD) (actual: {curso.fecha_inicio}): ") or curso.fecha_inicio
-        fecha_fin = input(f"Ingrese la nueva fecha de fin (YYYY-MM-DD) (actual: {curso.fecha_fin}): ") or curso.fecha_fin
-        profesor = input(f"Ingrese el nuevo nombre del profesor (actual: {curso.profesor}): ") or curso.profesor
+        nombre = input(f"Ingrese el nuevo nombre del curso: ") or curso.nombre
+        descripcion = input(f"Ingrese la nueva descripción del curso: ") or curso.descripcion
+        fecha_inicio = input(f"Ingrese la nueva fecha de inicio (YYYY-MM-DD): ") or curso.fecha_inicio
+        fecha_fin = input(f"Ingrese la nueva fecha de fin (YYYY-MM-DD): ") or curso.fecha_fin
+        profesor = input(f"Ingrese el nuevo nombre del profesor: ") or curso.profesor
         
         curso.nombre = nombre
         curso.descripcion = descripcion
@@ -108,3 +111,10 @@ class ICurso:
             print("Curso eliminado exitosamente.\n")
         except ValueError:
             print("Índice inválido.\n")
+
+if __name__=="__main__": 
+    nuevo_curso = Curso("CURSO", "descripcion", "fecha_inicio", "fecha_fin", "profesor")
+
+    Curso() 
+
+    intrfaz=ICurso(nuevo_curso) 

@@ -1,6 +1,7 @@
 from interfaz_curso import ICurso
 from interfaz_estudiante import IEstudiante
 from interfaz_inscrito import IInscrito
+import pymongo
 
 class Menu:
     def mostrar_menu(self):

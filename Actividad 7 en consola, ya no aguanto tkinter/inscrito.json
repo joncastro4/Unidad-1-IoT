@@ -134,5 +134,77 @@
         "telefono": "vbnvbn"
       }
     ]
+  },
+  {
+    "curso": {
+      "nombre": "qwe",
+      "descripcion": "qwe",
+      "fecha_inicio": "qwe",
+      "fecha_fin": "qwe",
+      "profesor": "qwe"
+    },
+    "estudiantes": [
+      {
+        "nombre": "qwe",
+        "apellido_paterno": "qwe",
+        "apellido_materno": "qwe",
+        "fecha_nacimiento": "qwe",
+        "telefono": "qwe"
+      }
+    ]
+  },
+  {
+    "curso": {
+      "nombre": "qwe",
+      "descripcion": "qwe",
+      "fecha_inicio": "qwe",
+      "fecha_fin": "qwe",
+      "profesor": "qwe"
+    },
+    "estudiantes": [
+      {
+        "nombre": "qwe",
+        "apellido_paterno": "qwe",
+        "apellido_materno": "qwe",
+        "fecha_nacimiento": "qwe",
+        "telefono": "qwe"
+      }
+    ]
+  },
+  {
+    "curso": {
+      "nombre": "qwe",
+      "descripcion": "qwe",
+      "fecha_inicio": "qwe",
+      "fecha_fin": "qwe",
+      "profesor": "qwe"
+    },
+    "estudiantes": [
+      {
+        "nombre": "cvb",
+        "apellido_paterno": "cvb",
+        "apellido_materno": "cvb",
+        "fecha_nacimiento": "cvb",
+        "telefono": "cvb"
+      }
+    ]
+  },
+  {
+    "curso": {
+      "nombre": "qwe",
+      "descripcion": "qwe",
+      "fecha_inicio": "qwe",
+      "fecha_fin": "qwe",
+      "profesor": "qwe"
+    },
+    "estudiantes": [
+      {
+        "nombre": "cvb",
+        "apellido_paterno": "cvb",
+        "apellido_materno": "cvb",
+        "fecha_nacimiento": "cvb",
+        "telefono": "cvb"
+      }
+    ]
   }
 ]
